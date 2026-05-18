@@ -12,7 +12,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 1rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: "Noto Sans Symbols", "Noto Sans Symbols 2", sans-serif;
   line-height: 1.6;
   letter-spacing: 0.02em;
 }
@@ -38,6 +38,17 @@ pre {
   margin: 0;
   font-family: inherit;
   white-space: pre-wrap;
+}
+
+.tile-link {
+  display: inline-block;
+  transition: transform 120ms ease;
+  transform-origin: center;
+}
+
+.tile-link:hover,
+.tile-link:focus {
+  transform: scale(1.35);
 }
 
 .title { color: #7c3aed; font-weight: 700; }

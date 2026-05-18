@@ -42,6 +42,8 @@ pre {
 
 .tile-link {
   display: inline-block;
+  font-family: "Noto Sans Symbols", "Noto Sans Symbols 2", sans-serif;
+  font-variant-emoji: text;
   transition: transform 120ms ease;
   transform-origin: center;
 }

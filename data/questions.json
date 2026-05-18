@@ -1,0 +1,29 @@
+{
+  "problems": [
+    {
+      "problem": {
+        "id": "001",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "south",
+        "turn": 7,
+        "dora_indicators": ["5m"],
+        "hand": {
+          "concealed": ["1m", "2m", "3m", "2p", "3p", "4p", "6p", "7p", "8p", "4s", "5s", "6s", "7z", "7z"],
+          "open_sets": [
+            {
+              "type": "pon",
+              "tiles": ["5z", "5z", "5z"],
+              "from": "opposite"
+            }
+          ],
+          "total_tiles_count": 17
+        }
+      },
+      "answer": {
+        "correct_discards": ["1m", "8p"],
+        "explanation": "示例解析占位：此处仅演示结构。后续填入真实何切题目时，可写明速度、打点、守备三方面理由。"
+      }
+    }
+  ]
+}

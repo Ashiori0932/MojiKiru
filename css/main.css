@@ -23,15 +23,13 @@ body {
 }
 
 a {
-  color: #2f6feb;
-  text-decoration: underline;
+  color: #000000;
+  text-decoration: none;
 }
 
 a:focus,
 a:hover {
   color: #d73a49;
-  outline: none;
-  text-decoration-style: double;
 }
 
 pre {
@@ -41,16 +39,9 @@ pre {
 }
 
 .tile-link {
-  display: inline-block;
   font-family: "Noto Sans Symbols", "Noto Sans Symbols 2", sans-serif;
-  font-variant-emoji: text;
-  transition: transform 120ms ease;
-  transform-origin: center;
-}
-
-.tile-link:hover,
-.tile-link:focus {
-  transform: scale(1.35);
+  font-size: 400%;
+  letter-spacing: -0.1em;
 }
 
 .title { color: #7c3aed; font-weight: 700; }

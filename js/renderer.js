@@ -19,25 +19,61 @@ function tileLabel(tile) {
   return `${tileToUnicode[tile] ?? '□'}(${tile})`;
 }
 
+function linkedTileLabel(tile) {
+  return `<a href="#" data-discard="${tile}">${tileLabel(tile)}</a>`;
+}
+
 function setLabel(set) {
   const textTiles = (set.tiles ?? []).map(tileLabel).join(' ');
   return `[${openSetTypeLabel[set.type] ?? set.type}|来源:${set.from}] ${textTiles}`;
 }
 
-function uniqueChoices(tiles) {
-  return [...new Set(tiles)];
-}
-
 export function renderProblem(problem, state) {
-  const choices = uniqueChoices(problem.hand.concealed);
-  const choiceLinks = choices.map((tile) => `<a href="#" data-discard="${tile}">切 ${tileLabel(tile)}</a>`).join(' ｜ ');
+  const linkedConcealed = problem.hand.concealed.map((tile) => linkedTileLabel(tile)).join('  ');
   const openSets = problem.hand.open_sets.length
     ? problem.hand.open_sets.map((set) => setLabel(set)).join('\n')
     : '(无副露)';
 
   const answerBlock = state.selection
-    ? `\n----- 判定 -----\n你的选择: ${tileLabel(state.selection)}\n参考答案: ${state.answer.correct_discards.map(tileLabel).join(' / ')}\n判定结果: ${state.answer.correct_discards.includes(state.selection) ? '正确' : '可再思考'}\n解析:\n${state.answer.explanation}\n`
-    : '\n(请选择一张要切出的牌，查看答案与解析)\n';
+    ? [
+        '-------------------- 判定与解析 --------------------',
+        `你的选择  : ${tileLabel(state.selection)}`,
+        `参考答案  : ${state.answer.correct_discards.map(tileLabel).join(' / ')}`,
+        `判定结果  : ${state.answer.correct_discards.includes(state.selection) ? '正确' : '可再思考'}`,
+        '解析内容  :',
+        `${state.answer.explanation}`,
+        '----------------------------------------------------'
+      ].join('\n')
+    : [
+        '-------------------- 作答说明 ----------------------',
+        '直接点击上方【手牌(门前)】中的任意一张牌，即视为打出该牌。',
+        '----------------------------------------------------'
+      ].join('\n');
 
-  return `日麻何切 TXT\n========================================\n题号: ${problem.id}\n场次: ${windLabel[problem.game_phase]}场 ${problem.round}局\n自风: ${windLabel[problem.self_position]}\n巡目: ${problem.turn}\n宝牌指示牌: ${problem.dora_indicators.map(tileLabel).join(' ')}\n\n手牌(门前):\n${problem.hand.concealed.map(tileLabel).join(' ')}\n\n副露区:\n${openSets}\n\n总牌数校验: ${problem.hand.total_tiles_count} 张\n\n----- 何切作答区 -----\n${choiceLinks}\n${answerBlock}\n----- 预留区域 -----\n[后续扩展]\n- 向听数/受入计算\n- 多题切换与目录索引\n- 牌理标签(进攻/防守/平衡)\n`;
+  return [
+    '====================================================',
+    '                 日麻何切 TXT 模式                 ',
+    '====================================================',
+    `题号        : ${problem.id}`,
+    `场次        : ${windLabel[problem.game_phase]}场 ${problem.round}局`,
+    `自风        : ${windLabel[problem.self_position]}`,
+    `巡目        : ${problem.turn}`,
+    `宝牌指示牌  : ${problem.dora_indicators.map(tileLabel).join('  ')}`,
+    '----------------------------------------------------',
+    '手牌(门前) [点击即切牌]',
+    linkedConcealed,
+    '----------------------------------------------------',
+    '副露区',
+    openSets,
+    '----------------------------------------------------',
+    `总牌数校验  : ${problem.hand.total_tiles_count} 张`,
+    '----------------------------------------------------',
+    answerBlock,
+    '-------------------- 预留区域 ----------------------',
+    '[后续扩展]',
+    '- 向听数/受入计算',
+    '- 多题切换与目录索引',
+    '- 牌理标签(进攻/防守/平衡)',
+    '===================================================='
+  ].join('\n');
 }

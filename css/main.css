@@ -56,10 +56,15 @@ pre {
   white-space: pre-wrap;
 }
 
-.tile-link {
+.tile-glyph {
   font-family: "Noto Sans Symbols 2", "Noto Sans Symbols", sans-serif;
   font-size: 400%;
   letter-spacing: -0.1em;
+}
+
+.tile-link {
+  display: inline-flex;
+  align-items: center;
 }
 
 .title { color: #7c3aed; font-weight: 700; }

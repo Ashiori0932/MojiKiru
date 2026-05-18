@@ -17,7 +17,7 @@ const openSetTypeLabel = { chii: '吃', pon: '碰', open_kan: '明杠', closed_k
 const windLabel = { east: '东', south: '南', west: '西', north: '北' };
 
 function tileLabel(tile) {
-  return `${tileToUnicode[tile] ?? '□'}`;
+  return `<span class="tile-glyph">${tileToUnicode[tile] ?? '□'}</span>`;
 }
 
 function linkedTileLabel(tile) {

@@ -1,3 +1,21 @@
+ /* 本地字体 */
+@font-face {
+  font-family: "Noto Sans Symbols";
+  src: url("../fonts/NotoSansSymbols-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans Symbols 2";
+  src: url("../fonts/NotoSansSymbols2-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 :root {
   color-scheme: light dark;
 }
@@ -39,7 +57,7 @@ pre {
 }
 
 .tile-link {
-  font-family: "Noto Sans Symbols", "Noto Sans Symbols 2", sans-serif;
+  font-family: "Noto Sans Symbols 2", "Noto Sans Symbols", sans-serif;
   font-size: 400%;
   letter-spacing: -0.1em;
 }

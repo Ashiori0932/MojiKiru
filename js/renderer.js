@@ -1,3 +1,4 @@
+// 牌编码 -> Unicode 麻将牌字符映射。
 const tileToUnicode = {
   '1m': '🀇', '2m': '🀈', '3m': '🀉', '4m': '🀊', '5m': '🀋', '6m': '🀌', '7m': '🀍', '8m': '🀎', '9m': '🀏',
   '1p': '🀙', '2p': '🀚', '3p': '🀛', '4p': '🀜', '5p': '🀝', '6p': '🀞', '7p': '🀟', '8p': '🀠', '9p': '🀡',
@@ -5,6 +6,7 @@ const tileToUnicode = {
   '1z': '🀀', '2z': '🀁', '3z': '🀂', '4z': '🀃', '5z': '🀆', '6z': '🀅', '7z': '🀄'
 };
 
+// 副露类型中文名称映射。
 const openSetTypeLabel = {
   chii: '吃',
   pon: '碰',
@@ -13,27 +15,33 @@ const openSetTypeLabel = {
   added_kan: '加杠'
 };
 
+// 方位映射。
 const windLabel = { east: '东', south: '南', west: '西', north: '北' };
 
+// 把牌编码格式化为“图形(编码)”便于兼顾可视与可检索。
 function tileLabel(tile) {
   return `${tileToUnicode[tile] ?? '□'}(${tile})`;
 }
 
+// 门前牌渲染为纯文字链接，点击后由 main.js 的事件绑定处理。
 function linkedTileLabel(tile) {
   return `<a href="#" data-discard="${tile}">${tileLabel(tile)}</a>`;
 }
 
+// 副露输出格式：[类型|来源] 牌组
 function setLabel(set) {
   const textTiles = (set.tiles ?? []).map(tileLabel).join(' ');
   return `[${openSetTypeLabel[set.type] ?? set.type}|来源:${set.from}] ${textTiles}`;
 }
 
+// 纯文本渲染主函数：返回完整页面文本块。
 export function renderProblem(problem, state) {
   const linkedConcealed = problem.hand.concealed.map((tile) => linkedTileLabel(tile)).join('  ');
   const openSets = problem.hand.open_sets.length
     ? problem.hand.open_sets.map((set) => setLabel(set)).join('\n')
     : '(无副露)';
 
+  // 未作答时显示说明；作答后显示判定与解析。
   const answerBlock = state.selection
     ? [
         '-------------------- 判定与解析 --------------------',

@@ -1,0 +1,36 @@
+:root {
+  /* 跟随系统浅色/深色方案，保持纯文本风格同时具备基础可读性 */
+  color-scheme: light dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  max-width: 88ch;
+  /* 使用等宽字体，模拟终端/TXT 阅读体验 */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  /* 保留换行，配合 <pre> 呈现纯文本排版 */
+  white-space: pre-wrap;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+a:focus,
+a:hover {
+  outline: none;
+  text-decoration-style: double;
+}
+
+pre {
+  margin: 0;
+  font-family: inherit;
+}

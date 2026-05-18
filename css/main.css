@@ -30,7 +30,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 1rem;
-  font-family: "Noto Sans Symbols", "Noto Sans Symbols 2", sans-serif;
+  font-family: sans-serif;
   line-height: 1.6;
   letter-spacing: 0.02em;
 }

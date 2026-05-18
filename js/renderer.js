@@ -6,82 +6,72 @@ const tileToUnicode = {
   '1z': '🀀', '2z': '🀁', '3z': '🀂', '4z': '🀃', '5z': '🀆', '6z': '🀅', '7z': '🀄︎'
 };
 
-// 副露类型中文名称映射。
-const openSetTypeLabel = {
-  chii: '吃',
-  pon: '碰',
-  open_kan: '明杠',
-  closed_kan: '暗杠',
-  added_kan: '加杠'
-};
-
-// 方位映射。
+const openSetTypeLabel = { chii: '吃', pon: '碰', open_kan: '明杠', closed_kan: '暗杠', added_kan: '加杠' };
 const windLabel = { east: '东', south: '南', west: '西', north: '北' };
 
-// 把牌编码格式化为“图形(编码)”便于兼顾可视与可检索。
 function tileLabel(tile) {
   return `${tileToUnicode[tile] ?? '□'}`;
 }
 
-// 门前牌渲染为纯文字链接，点击后由 main.js 的事件绑定处理。
 function linkedTileLabel(tile) {
-  return `<a href="#" data-discard="${tile}">${tileLabel(tile)}</a>`;
+  return `<a class="tile-link" href="#" data-discard="${tile}" title="打出 ${tile}">${tileLabel(tile)}</a>`;
 }
 
-// 副露输出格式：[类型|来源] 牌组
 function setLabel(set) {
   const textTiles = (set.tiles ?? []).map(tileLabel).join(' ');
   return `[${openSetTypeLabel[set.type] ?? set.type}|来源:${set.from}] ${textTiles}`;
 }
 
-// 纯文本渲染主函数：返回完整页面文本块。
+function kvLine(label, value) {
+  return `<span class="label">${label.padEnd(10, ' ')}</span>: <span class="value">${value}</span>`;
+}
+
 export function renderProblem(problem, state) {
   const linkedConcealed = problem.hand.concealed.map((tile) => linkedTileLabel(tile)).join('  ');
   const openSets = problem.hand.open_sets.length
-    ? problem.hand.open_sets.map((set) => setLabel(set)).join('\n')
-    : '(无副露)';
+    ? problem.hand.open_sets.map((set) => `<span class="value">${setLabel(set)}</span>`).join('\n')
+    : '<span class="muted">(无副露)</span>';
 
-  // 未作答时显示说明；作答后显示判定与解析。
   const answerBlock = state.selection
     ? [
-        '-------------------- 判定与解析 --------------------',
-        `你的选择  : ${tileLabel(state.selection)}`,
-        `参考答案  : ${state.answer.correct_discards.map(tileLabel).join(' / ')}`,
-        `判定结果  : ${state.answer.correct_discards.includes(state.selection) ? '正确' : '可再思考'}`,
-        '解析内容  :',
-        `${state.answer.explanation}`,
-        '----------------------------------------------------'
+        '<span class="sep">-------------------- 判定与解析 --------------------</span>',
+        kvLine('你的选择', tileLabel(state.selection)),
+        kvLine('参考答案', state.answer.correct_discards.map(tileLabel).join(' / ')),
+        kvLine('判定结果', state.answer.correct_discards.includes(state.selection) ? '正确' : '可再思考'),
+        '<span class="label">解析内容  </span>:',
+        `<span class="value">${state.answer.explanation}</span>`,
+        '<span class="sep">----------------------------------------------------</span>'
       ].join('\n')
     : [
-        '-------------------- 作答说明 ----------------------',
-        '直接点击上方【手牌(门前)】中的任意一张牌，即视为打出该牌。',
-        '----------------------------------------------------'
+        '<span class="sep">-------------------- 作答说明 ----------------------</span>',
+        '<span class="muted">直接点击上方【手牌(门前)】中的任意一张牌，即视为打出该牌。</span>',
+        '<span class="sep">----------------------------------------------------</span>'
       ].join('\n');
 
   return [
-    '====================================================',
-    '                 日麻何切 TXT 模式                 ',
-    '====================================================',
-    `题号        : ${problem.id}`,
-    `场次        : ${windLabel[problem.game_phase]}场 ${problem.round}局`,
-    `自风        : ${windLabel[problem.self_position]}`,
-    `巡目        : ${problem.turn}`,
-    `宝牌指示牌  : ${problem.dora_indicators.map(tileLabel).join('  ')}`,
-    '----------------------------------------------------',
-    '手牌(门前) [点击即切牌]',
+    '<span class="frame">====================================================</span>',
+    '<span class="title">                 日麻何切 TXT 模式                 </span>',
+    '<span class="frame">====================================================</span>',
+    kvLine('题号', problem.id),
+    kvLine('场次', `${windLabel[problem.game_phase]}场 ${problem.round}局`),
+    kvLine('自风', windLabel[problem.self_position]),
+    kvLine('巡目', problem.turn),
+    kvLine('宝牌指示牌', problem.dora_indicators.map(tileLabel).join('  ')),
+    '<span class="sep">----------------------------------------------------</span>',
+    '<span class="section">手牌(门前) [点击即切牌]</span>',
     linkedConcealed,
-    '----------------------------------------------------',
-    '副露区',
+    '<span class="sep">----------------------------------------------------</span>',
+    '<span class="section">副露区</span>',
     openSets,
-    '----------------------------------------------------',
-    `总牌数校验  : ${problem.hand.total_tiles_count} 张`,
-    '----------------------------------------------------',
+    '<span class="sep">----------------------------------------------------</span>',
+    kvLine('总牌数校验', `${problem.hand.total_tiles_count} 张`),
+    '<span class="sep">----------------------------------------------------</span>',
     answerBlock,
-    '-------------------- 预留区域 ----------------------',
-    '[后续扩展]',
-    '- 向听数/受入计算',
-    '- 多题切换与目录索引',
-    '- 牌理标签(进攻/防守/平衡)',
-    '===================================================='
+    '<span class="sep">-------------------- 预留区域 ----------------------</span>',
+    '<span class="muted">[后续扩展]</span>',
+    '<span class="muted">- 向听数/受入计算</span>',
+    '<span class="muted">- 多题切换与目录索引</span>',
+    '<span class="muted">- 牌理标签(进攻/防守/平衡)</span>',
+    '<span class="frame">====================================================</span>'
   ].join('\n');
 }

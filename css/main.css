@@ -1,5 +1,4 @@
 :root {
-  /* 跟随系统浅色/深色方案，保持纯文本风格同时具备基础可读性 */
   color-scheme: light dark;
 }
 
@@ -9,23 +8,28 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
   padding: 1rem;
-  max-width: 88ch;
-  /* 使用等宽字体，模拟终端/TXT 阅读体验 */
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   line-height: 1.6;
   letter-spacing: 0.02em;
-  /* 保留换行，配合 <pre> 呈现纯文本排版 */
-  white-space: pre-wrap;
+}
+
+#app {
+  width: 100%;
+  max-width: 88ch;
 }
 
 a {
-  color: inherit;
+  color: #2f6feb;
   text-decoration: underline;
 }
 
 a:focus,
 a:hover {
+  color: #d73a49;
   outline: none;
   text-decoration-style: double;
 }
@@ -33,4 +37,27 @@ a:hover {
 pre {
   margin: 0;
   font-family: inherit;
+  white-space: pre-wrap;
+}
+
+.title { color: #7c3aed; font-weight: 700; }
+.frame { color: #6b7280; }
+.sep { color: #9ca3af; }
+.section { color: #0f766e; font-weight: 600; }
+.label { color: #b45309; }
+.value { color: #111827; }
+.muted { color: #6b7280; }
+
+
+@media (prefers-color-scheme: dark) {
+  a { color: #7aa2ff; }
+  a:focus,
+  a:hover { color: #ff7b72; }
+  .title { color: #c4b5fd; }
+  .frame { color: #9ca3af; }
+  .sep { color: #6b7280; }
+  .section { color: #5eead4; }
+  .label { color: #fbbf24; }
+  .value { color: #e5e7eb; }
+  .muted { color: #9ca3af; }
 }

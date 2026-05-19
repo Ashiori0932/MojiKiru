@@ -92,6 +92,10 @@ export function renderProblem(problem, state) {
             .join(' ')
         : '';
 
+    const handLine = concealedTiles +
+        (openMelds ? '<span class="meld-spacer"></span>' + openMelds : '');
+
+
     return [
         '<span class="title">文切：极简文字何切</span>',
         '<span class="frame">====================================================</span>',
@@ -100,8 +104,7 @@ export function renderProblem(problem, state) {
         `<span class="value">${WIND_LABEL[problem.game_phase]}${problem.round}局 ${WIND_LABEL[problem.self_position]}家 ${problem.turn}巡目</span>`,
 
         renderDoraIndicators(problem.dora_indicators),
-        concealedTiles,
-        openMelds,
+        handLine,
         renderAnswerSection(problem, state),
         '<span class="sep">====================================================</span>'
     ].join('\n');

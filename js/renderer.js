@@ -60,9 +60,7 @@ export function renderProblem(problem, state) {
     '<span class="title">                 日麻何切 TXT 模式                 </span>',
     '<span class="frame">====================================================</span>',
     kvLine('题号', problem.id),
-    kvLine('场次', `${windLabel[problem.game_phase]}场 ${problem.round}局`),
-    kvLine('自风', windLabel[problem.self_position]),
-    kvLine('巡目', problem.turn),
+`${windLabel[problem.game_phase]}${problem.round}局 ${windLabel[problem.self_position]}家 ${problem.turn}巡目`,
     kvLine('宝牌指示牌', problem.dora_indicators.map(tileLabel).join('  ')),
     '<span class="sep">----------------------------------------------------</span>',
     '<span class="section">手牌(门前) [点击即切牌]</span>',
@@ -71,14 +69,7 @@ export function renderProblem(problem, state) {
     '<span class="section">副露区</span>',
     openSets,
     '<span class="sep">----------------------------------------------------</span>',
-    kvLine('总牌数校验', `${problem.hand.total_tiles_count} 张`),
-    '<span class="sep">----------------------------------------------------</span>',
     answerBlock,
-    '<span class="sep">-------------------- 预留区域 ----------------------</span>',
-    '<span class="muted">[后续扩展]</span>',
-    '<span class="muted">- 向听数/受入计算</span>',
-    '<span class="muted">- 多题切换与目录索引</span>',
-    '<span class="muted">- 牌理标签(进攻/防守/平衡)</span>',
     '<span class="frame">====================================================</span>'
   ].join('\n');
 }

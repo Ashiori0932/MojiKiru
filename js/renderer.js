@@ -65,23 +65,16 @@ function renderDoraIndicators(doraTiles) {
  *************************************************/
 function renderAnswerSection(problem, state) {
     if (!state.selection) {
-        return [
-            '<span class="sep">-------------------- 作答说明 ----------------------</span>',
-            '<span class="muted">直接点击上方【手牌(门前)】中的任意一张牌，即视为打出该牌。</span>',
-            '<span class="sep">----------------------------------------------------</span>'
-        ].join('\n');
+        return '';
     }
 
-    const isCorrect = state.answer.correct_discards.includes(state.selection);
 
     return [
-        '<span class="sep">-------------------- 判定与解析 --------------------</span>',
-        `手牌       : <span class="value">${renderTile(state.selection)}</span>`,
-        `参考手牌   : <span class="value">${state.answer.correct_discards.map(renderTile).join(' / ')}</span>`,
-        `判定结果   : <span class="value">${isCorrect ? '正确' : '可再思考'}</span>`,
-        '解析内容   :',
+        '<span class="sep">----------------------------------------</span>',
+        `选择: <span class="value">${renderTile(state.selection)}</span>`,
+        `答案: <span class="value">${state.answer.correct_discards.map(renderTile).join(' / ')}</span>`,
+        '解析:',
         `<span class="value">${state.answer.explanation}</span>`,
-        '<span class="sep">----------------------------------------------------</span>'
     ].join('\n');
 }
 
@@ -108,13 +101,8 @@ export function renderProblem(problem, state) {
 
         renderDoraIndicators(problem.dora_indicators),
         concealedTiles,
-
-        '<span class="sep">----------------------------------------------------</span>',
-        '<span class="section">副露区</span>',
         openMelds,
-
         renderAnswerSection(problem, state),
-
-        '<span class="frame">====================================================</span>'
+        '<span class="sep">====================================================</span>'
     ].join('\n');
 }

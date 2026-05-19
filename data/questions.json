@@ -27,8 +27,28 @@
       },
       "answer": {
         "correct_discards": ["7z"],
-        "explanation": "示例解析占位：此处仅演示结构。后续填入真实何切题目时，可写明速度、打点、守备三方面理由。"
+        "explanation": "此处仅作占位以演示结构。"
+      }
+    },
+    {
+      "problem": {
+        "id": "002",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "west",
+        "turn": 7,
+        "dora_indicators": ["3s"],
+        "hand": {
+          "concealed": ["4m", "5m", "6p", "8p", "9p", "9p", "1s", "1s", "2s", "3s", "4s", "6s", "7s", "7p"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["9p"],
+        "explanation": "切掉一个对子可以确定平和，这里要保留1s的雀头，在摸进宝牌时再切出，从而形成宝牌雀头，所以这里切9p。"
       }
     }
+
   ]
 }

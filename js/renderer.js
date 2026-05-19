@@ -58,7 +58,7 @@ export function renderProblem(problem, state) {
     '<span class="frame">====================================================</span>',
     '<span class="title">                 日麻何切 TXT 模式                 </span>',
     '<span class="frame">====================================================</span>',
-    `<span class="value">$题目{problem.id}</span>`,
+    `<span class="value">题目${problem.id}</span>`,
     `<span class="value">${windLabel[problem.game_phase]}${problem.round}局 ${windLabel[problem.self_position]}家 ${problem.turn}巡目</span>`,
     `宝牌指示牌 : <span class="value">${problem.dora_indicators.map(tileLabel).join('  ')}</span>`,
     '<span class="sep">----------------------------------------------------</span>',

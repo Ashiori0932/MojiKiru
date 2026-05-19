@@ -1,15 +1,19 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>日麻何切 TXT</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🀙</text></svg>">
-    <link rel="stylesheet" href="./css/main.css" />
-  </head>
-  <body>
-    <!-- 纯文本渲染容器：由 main.js 注入完整 TXT 视图 -->
-    <main id="app" aria-live="polite"></main>
-    <script type="module" src="./js/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <!-- 移动端适配：让页面宽度跟随设备宽度 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日麻何切 TXT</title>
+  <!-- 网站图标（favicon）：使用内联 SVG + 麻将牌 emoji -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🀙</text></svg>">
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+<body>
+<!-- 主内容容器；aria-live 用于屏幕阅读器实时播报内容变化 -->
+<main id="app" aria-live="polite"></main>
+
+<!-- 以 ES Module 方式加载主 JS 逻辑 -->
+<script type="module" src="./js/main.js"></script>
+</body>
 </html>

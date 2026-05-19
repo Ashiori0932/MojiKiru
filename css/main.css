@@ -59,7 +59,7 @@ pre {
 .tile-glyph {
   font-family: "Noto Sans Symbols 2", "Noto Sans Symbols", sans-serif;
   font-size: 400%;
-  letter-spacing: -0.1em;
+  letter-spacing: 0;
 }
 
 .tile-link {

@@ -13,11 +13,14 @@ const tileToUnicode = {
   '5z': '🀆', '6z': '🀅', '7z': '🀄'
 };
 
+// 统一的牌背字符
+const TILE_BACK = '🀫';
+
 const openSetTypeLabel = { chii: '吃', pon: '碰', open_kan: '明杠', closed_kan: '暗杠', added_kan: '加杠' };
 const windLabel = { east: '东', south: '南', west: '西', north: '北' };
 
 function tileLabel(tile) {
-  return `<span class="tile-glyph">${tileToUnicode[tile] ?? '□'}</span>`;
+  return `<span class="tile-glyph">${tileToUnicode[tile] ?? TILE_BACK}</span>`;
 }
 
 function linkedTileLabel(tile) {
@@ -29,10 +32,6 @@ function setLabel(set) {
   return `[${openSetTypeLabel[set.type] ?? set.type}|来源:${set.from}] ${textTiles}`;
 }
 
-function kvLine(label, value) {
-  return `<span class="label">${label.padEnd(10, ' ')}</span>: <span class="value">${value}</span>`;
-}
-
 export function renderProblem(problem, state) {
   const linkedConcealed = problem.hand.concealed.map((tile) => linkedTileLabel(tile)).join('  ');
   const openSets = problem.hand.open_sets.length
@@ -42,10 +41,10 @@ export function renderProblem(problem, state) {
   const answerBlock = state.selection
     ? [
         '<span class="sep">-------------------- 判定与解析 --------------------</span>',
-        kvLine('你的选择', tileLabel(state.selection)),
-        kvLine('参考答案', state.answer.correct_discards.map(tileLabel).join(' / ')),
-        kvLine('判定结果', state.answer.correct_discards.includes(state.selection) ? '正确' : '可再思考'),
-        '<span class="label">解析内容  </span>:',
+        `手牌       : <span class="value">${tileLabel(state.selection)}</span>`,
+        `参考手牌   : <span class="value">${state.answer.correct_discards.map(tileLabel).join(' / ')}</span>`,
+        `判定结果   : <span class="value">${state.answer.correct_discards.includes(state.selection) ? '正确' : '可再思考'}</span>`,
+        '解析内容   :',
         `<span class="value">${state.answer.explanation}</span>`,
         '<span class="sep">----------------------------------------------------</span>'
       ].join('\n')
@@ -59,9 +58,9 @@ export function renderProblem(problem, state) {
     '<span class="frame">====================================================</span>',
     '<span class="title">                 日麻何切 TXT 模式                 </span>',
     '<span class="frame">====================================================</span>',
-    kvLine('题号', problem.id),
-`${windLabel[problem.game_phase]}${problem.round}局 ${windLabel[problem.self_position]}家 ${problem.turn}巡目`,
-    kvLine('宝牌指示牌', problem.dora_indicators.map(tileLabel).join('  ')),
+    `<span class="value">$题目{problem.id}</span>`,
+    `<span class="value">${windLabel[problem.game_phase]}${problem.round}局 ${windLabel[problem.self_position]}家 ${problem.turn}巡目</span>`,
+    `宝牌指示牌 : <span class="value">${problem.dora_indicators.map(tileLabel).join('  ')}</span>`,
     '<span class="sep">----------------------------------------------------</span>',
     '<span class="section">手牌(门前) [点击即切牌]</span>',
     linkedConcealed,

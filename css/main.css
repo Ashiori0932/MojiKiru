@@ -76,7 +76,7 @@ pre {
 .meld-tile-called {
   transform: rotate(90deg);
   transform-origin: center;
-  margin: 0.1em -0.3em;
+  margin: 0.1em -0.2em;
 }
 
  .meld-spacer {
@@ -86,7 +86,7 @@ pre {
 
  .meld-spacer-small {
    display: inline-block;
-   width: 0.9em;
+   width: 1em;
  }
 
 .title { color: #7c3aed; font-weight: 700; }

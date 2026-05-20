@@ -67,6 +67,18 @@ pre {
   align-items: center;
 }
 
+.meld-tile {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: bottom;
+}
+
+.meld-tile-called {
+  transform: rotate(90deg);
+  transform-origin: center;
+  margin: 0 0.2em;
+}
+
  .meld-spacer {
    display: inline-block;
    width: 1.5em; /* 想要更大就改这里 */

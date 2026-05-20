@@ -37,6 +37,25 @@
         "round": 1,
         "self_position": "west",
         "turn": 7,
+        "dora_indicators": ["2z"],
+        "hand": {
+          "concealed": ["6p", "7p", "7p", "8p", "1s", "1s", "2s", "2s", "3s", "4s", "5s", "7z", "7z", "0p"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["2s"],
+        "explanation": "这里要考虑对碰听牌的形状。虽然切1s和2s的进张枚数相同，但是在对碰听牌时1s1s、7z7z的对碰优于2s2s、7z7z的对碰，所以这里优先切2s。"
+      }
+    },
+    {
+      "problem": {
+        "id": "003",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "west",
+        "turn": 7,
         "dora_indicators": ["3s"],
         "hand": {
           "concealed": ["4m", "5m", "6p", "8p", "9p", "9p", "1s", "1s", "2s", "3s", "4s", "6s", "7s", "7p"],

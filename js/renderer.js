@@ -65,7 +65,7 @@ function renderMeld(set) {
     return (set.tiles ?? [])
         .map((tile, index) => {
             return index === calledIndex ? 
-                `<span class="meld-tile meld-tile-called" title="${tile}">${renderTile(tile)}</span>'=<span class="meld-spacer"></span>` 
+                `<span class="meld-tile meld-tile-called" title="${tile}">${renderTile(tile)}</span><span class="meld-spacer-small"></span>` 
                 : `<span class="meld-tile" title="${tile}">${renderTile(tile)}</span>`;
         })
         .join('');

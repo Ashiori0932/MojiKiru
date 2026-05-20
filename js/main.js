@@ -7,6 +7,8 @@ const app = document.getElementById('app');
 
 // 轻量状态：只保存当前题目、用户所选切牌、以及答案信息。
 const state = {
+  problems: [],
+  currentIndex: 0,
   problem: null,
   selection: '',
   answer: { correct_discards: [], explanation: '' }
@@ -17,6 +19,7 @@ function mount() {
   if (!state.problem) return;
   app.innerHTML = `<pre>${renderProblem(state.problem, state)}</pre>`;
   bindChoices();
+  bindNavigation();
 }
 
 // 绑定所有可点击手牌链接（data-discard），点击即视为切出该牌。
@@ -25,6 +28,25 @@ function bindChoices() {
     link.addEventListener('click', (event) => {
       event.preventDefault();
       state.selection = link.dataset.discard || '';
+      mount();
+    });
+  });
+}
+
+// 绑定题目切换链接：支持上一题 / 下一题并重新渲染。
+function bindNavigation() {
+  app.querySelectorAll('a[data-nav]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const direction = link.dataset.nav;
+      const nextIndex = direction === 'prev' ? state.currentIndex - 1 : state.currentIndex + 1;
+      const next = state.problems[nextIndex];
+      if (!next) return;
+
+      state.currentIndex = nextIndex;
+      state.problem = next.problem;
+      state.answer = next.answer;
+      state.selection = '';
       mount();
     });
   });
@@ -40,6 +62,8 @@ async function init() {
       return;
     }
 
+    state.problems = problems;
+    state.currentIndex = 0;
     state.problem = first.problem;
     state.answer = first.answer;
 

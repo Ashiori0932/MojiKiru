@@ -100,10 +100,18 @@ function renderAnswerSection(problem, state) {
     ].join('\n');
 }
 
+function renderNavigation(state) {
+    const prev = state.currentIndex > 0 ? '<a href="#" data-nav="prev">上一题</a>' : '';
+    const next = state.currentIndex < state.problems.length - 1 ? '<a href="#" data-nav="next">下一题</a>' : '';
+
+    return [prev, next].filter(Boolean).join(' / ');
+}
+
 /*************************************************
  * 主渲染函数
  *************************************************/
 export function renderProblem(problem, state) {
+    const navigation = renderNavigation(state);
     const concealedTiles = problem.hand.concealed
         .map(renderLinkedTile)
         .join('');
@@ -122,7 +130,7 @@ export function renderProblem(problem, state) {
         '<span class="title">文切：极简文字何切</span>',
         '<span class="frame">====================================================</span>',
 
-        `<span class="value">题目 ${problem.id}（点击手牌切牌）</span>`,
+        `<span class="value">题目 ${problem.id}（点击手牌切牌）${navigation ? ` ${navigation}` : ''}</span>`,
         `<span class="value">${WIND_LABEL[problem.game_phase]}${problem.round}局 ${WIND_LABEL[problem.self_position]}家 ${problem.turn}巡目</span>`,
 
         renderDoraIndicators(problem.dora_indicators),

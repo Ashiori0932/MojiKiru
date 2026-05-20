@@ -84,6 +84,11 @@ pre {
    width: 1.5em; /* 想要更大就改这里 */
  }
 
+ .meld-spacer-small {
+   display: inline-block;
+   width: 0.5em;
+ }
+
 .title { color: #7c3aed; font-weight: 700; }
 .frame { color: #6b7280; }
 .sep { color: #9ca3af; }

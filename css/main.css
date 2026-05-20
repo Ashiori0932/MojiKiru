@@ -76,7 +76,7 @@ pre {
 .meld-tile-called {
   transform: rotate(90deg);
   transform-origin: center;
-  margin: 0 -0.3em;
+  margin: -0.1em -0.3em;
 }
 
  .meld-spacer {

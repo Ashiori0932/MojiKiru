@@ -67,6 +67,24 @@ pre {
   align-items: center;
 }
 
+.meld-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: bottom;
+}
+
+.meld-tile-called {
+  width: 1.4em;
+  margin: 0 0.25em;
+}
+
+.meld-tile-called .tile-glyph {
+  display: inline-block;
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+
  .meld-spacer {
    display: inline-block;
    width: 1.5em; /* 想要更大就改这里 */

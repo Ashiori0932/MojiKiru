@@ -40,12 +40,33 @@ function renderLinkedTile(tile) {
     return `<a class="tile-link" href="#" data-discard="${tile}" title="打出 ${tile}"> ${renderTile(tile)} </a>`;
 }
 
+function getCalledTileIndex(set) {
+    const size = (set.tiles ?? []).length;
+    if (!size) return -1;
+
+    // 默认每组第一张就是触发副露动作的牌。
+    if (Number.isInteger(set.called_index) && set.called_index >= 0 && set.called_index < size) {
+        return set.called_index;
+    }
+
+    if (!set.from) return 0;
+    if (set.from === 'left') return 0;
+    if (set.from === 'opposite') return 1;
+    if (set.from === 'right') return size - 1;
+    return 0;
+}
+
 /*************************************************
  * 副露（吃 / 碰 / 杠）
  *************************************************/
 function renderMeld(set) {
+    const calledIndex = getCalledTileIndex(set);
+
     return (set.tiles ?? [])
-        .map(renderTile)
+        .map((tile, index) => {
+            const className = index === calledIndex ? 'meld-tile meld-tile-called' : 'meld-tile';
+            return `<span class="${className}" title="${tile}">${renderTile(tile)}</span>`;
+        })
         .join('');
 }
 

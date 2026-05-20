@@ -64,8 +64,9 @@ function renderMeld(set) {
 
     return (set.tiles ?? [])
         .map((tile, index) => {
-            const className = index === calledIndex ? 'meld-tile meld-tile-called' : 'meld-tile';
-            return `<span class="${className}" title="${tile}">${renderTile(tile)}</span>`;
+            return index === calledIndex ? 
+                `<span class="meld-tile meld-tile-called" title="${tile}">${renderTile(tile)}</span>'=<span class="meld-spacer"></span>` 
+                : `<span class="meld-tile" title="${tile}">${renderTile(tile)}</span>`;
         })
         .join('');
 }

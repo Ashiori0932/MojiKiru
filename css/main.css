@@ -47,7 +47,17 @@ a {
 
 a:focus,
 a:hover {
-  color: #d73a49;
+  text-shadow:
+          0 0 2px #01aa01,
+          0 0 4px #01aa01,
+  0 0 2px #01aa01,
+  0 0 4px #01aa01,
+  0 0 2px #01aa01,
+  0 0 4px #01aa01;
+}
+
+aka {
+  color: red;
 }
 
 pre {
@@ -60,11 +70,13 @@ pre {
   font-family: "Noto Sans Symbols 2", "Noto Sans Symbols", sans-serif;
   font-size: 400%;
   letter-spacing: 0;
+  line-height: 100%;
 }
 
 .tile-link {
   display: inline-flex;
   align-items: center;
+  line-height: 100%;
 }
 
 .meld-tile {
@@ -74,9 +86,9 @@ pre {
 }
 
 .meld-tile-called {
-  transform: rotate(90deg);
+  transform: rotate(90deg) translateX(-0.3em);;
   transform-origin: center;
-  margin: 0.1em -0.2em;
+  margin: -0.2em;
 }
 
  .meld-spacer {

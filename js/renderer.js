@@ -29,13 +29,35 @@ const WIND_LABEL = {
 };
 
 /*************************************************
+ * 红宝牌映射（0x → 红5x）
+ *************************************************/
+const AKA_TILES = {
+    '0m': '5m',
+    '0p': '5p',
+    '0s': '5s'
+};
+
+function normalizeAkaTile(tile) {
+    return AKA_TILES[tile] ?? tile;
+}
+
+function isAkaTile(tile) {
+    return tile in AKA_TILES;
+}
+
+/*************************************************
  * 基础牌面渲染
  *************************************************/
 function renderTile(tile) {
-    const unicode = TILE_UNICODE[tile] ?? TILE_BACK;
+    const displayTile = normalizeAkaTile(tile);
+    const unicode = TILE_UNICODE[displayTile] ?? TILE_BACK;
+
+    if (isAkaTile(tile)) {
+        return `<span class="tile-glyph aka">${unicode}</span>`;
+    }
+
     return `<span class="tile-glyph">${unicode}</span>`;
 }
-
 function renderLinkedTile(tile) {
     return `<a class="tile-link" href="#" data-discard="${tile}" title="打出 ${tile}"> ${renderTile(tile)} </a>`;
 }
@@ -64,8 +86,8 @@ function renderMeld(set) {
 
     return (set.tiles ?? [])
         .map((tile, index) => {
-            return index === calledIndex ? 
-                `<span class="meld-tile meld-tile-called" title="${tile}">${renderTile(tile)}</span><span class="meld-spacer-small"></span>` 
+            return index === calledIndex ?
+                `<span class="meld-tile meld-tile-called" title="${tile}">${renderTile(tile)}</span><span class="meld-spacer-small"></span>`
                 : `<span class="meld-tile" title="${tile}">${renderTile(tile)}</span>`;
         })
         .join('');

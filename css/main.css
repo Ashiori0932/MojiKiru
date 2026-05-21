@@ -49,15 +49,17 @@ a:focus,
 a:hover {
   text-shadow:
           0 0 2px #01aa01,
-          0 0 4px #01aa01,
   0 0 2px #01aa01,
-  0 0 4px #01aa01,
-  0 0 2px #01aa01,
-  0 0 4px #01aa01;
+  0 0 2px #01aa01;
+
 }
 
-aka {
-  color: red;
+.aka {
+  color: #b90000;
+}
+
+.nav-placeholder {
+  visibility: hidden;
 }
 
 pre {

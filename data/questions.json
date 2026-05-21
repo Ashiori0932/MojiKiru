@@ -5,36 +5,6 @@
         "id": "001",
         "game_phase": "east",
         "round": 1,
-        "self_position": "south",
-        "turn": 7,
-        "dora_indicators": ["5m"],
-        "hand": {
-          "concealed": ["1m", "2m", "3m", "2p", "3p", "4p", "5p", "7z"],
-          "open_sets": [
-            {
-              "type": "pon",
-              "tiles": ["5z", "5z", "5z"],
-              "from": "opposite"
-            },
-            {
-              "type": "chii",
-              "tiles": ["6p", "7p", "8p"],
-              "from": "left"
-            }
-          ],
-          "total_tiles_count": 14
-        }
-      },
-      "answer": {
-        "correct_discards": ["7z"],
-        "explanation": "此处仅作占位以演示结构。"
-      }
-    },
-    {
-      "problem": {
-        "id": "002",
-        "game_phase": "east",
-        "round": 1,
         "self_position": "west",
         "turn": 7,
         "dora_indicators": ["2z"],
@@ -51,7 +21,83 @@
     },
     {
       "problem": {
+        "id": "002",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "west",
+        "turn": 7,
+        "dora_indicators": ["2z"],
+        "hand": {
+          "concealed": ["6p", "7p", "7p", "8p", "1s", "1s", "2s", "2s", "3s", "4s", "5s", "7z", "7z", "6p"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["5s"],
+        "explanation": "从进张数考虑，切5s比切2s少一枚进张，但这里七对一向听，且有两杯口的可能，要切5s保留七对的听牌机会。"
+      }
+    },
+    {
+      "problem": {
         "id": "003",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "west",
+        "turn": 7,
+        "dora_indicators": ["2z"],
+        "hand": {
+          "concealed": ["6p", "7p", "7p", "8p", "1s", "1s", "2s", "2s", "3s", "4s", "5s", "7z", "7z", "7p"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["8p"],
+        "explanation": "对子数量过多，6p7p7p7p8p只需形成一搭牌即可。保留7p7p7p则可以狙击三暗刻，同时切8p来保留0p的进张可能，重视手牌的防御性时则先切6p。"
+      }
+    },
+    {
+      "problem": {
+        "id": "004",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "east",
+        "turn": 6,
+        "dora_indicators": ["2z"],
+        "hand": {
+          "concealed": ["2m", "3m", "8m", "8m", "4p", "5p", "5p", "6p", "7p", "9p", "5s", "5s", "6s", "1m"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["5s"],
+        "explanation": "饼子侧是有3p、6p、8p三种进张的DNA型，切5s可以确定索子侧的两面好型，同时还能在听牌时确定平和。"
+      }
+    },
+    {
+      "problem": {
+        "id": "005",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "east",
+        "turn": 6,
+        "dora_indicators": ["2z"],
+        "hand": {
+          "concealed": ["2m", "3m", "8m", "8m", "4p", "5p", "5p", "6p", "7p", "9p", "5s", "5s", "6s", "4m"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["9p"],
+        "explanation": "虽然饼子侧是有3p、6p、8p三种进张的DNA型，但是比起平和，断幺可以副露，更加灵活。所以不应该确定平和，而是应该断幺。并且留下5s5s还可以狙击0s。"
+      }
+    },
+    {
+      "problem": {
+        "id": "020",
         "game_phase": "east",
         "round": 1,
         "self_position": "west",
@@ -71,3 +117,5 @@
 
   ]
 }
+
+

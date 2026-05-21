@@ -114,19 +114,20 @@ function renderAnswerSection(problem, state) {
 
 
     return [
-        '<span class="sep">----------------------------------------</span>',
-        `选择: <span class="value">${renderTile(state.selection)}</span>`,
-        `答案: <span class="value">${state.answer.correct_discards.map(renderTile).join(' / ')}</span>`,
+        `你的选择: <span class="value">${renderTile(state.selection)}</span>`,
+        `参考答案: <span class="value">${state.answer.correct_discards.map(renderTile).join(' / ')}</span>`,
         '解析:',
         `<span class="value">${state.answer.explanation}</span>`,
     ].join('\n');
 }
 
 function renderNavigation(state) {
-    const prev = state.currentIndex > 0 ? '<a href="#" data-nav="prev">上一题</a>' : '';
-    const next = state.currentIndex < state.problems.length - 1 ? '<a href="#" data-nav="next">下一题</a>' : '';
+    const prev = state.currentIndex > 0
+        ? '<a href="#" data-nav="prev">[上一题]</a>'
+        : '<span class="nav-placeholder" aria-hidden="true">[上一题]</span>';
+    const next = state.currentIndex < state.problems.length - 1 ? '<a href="#" data-nav="next">[下一题]</a>' : '';
 
-    return [prev, next].filter(Boolean).join(' / ');
+    return next ? `${prev}   ${next}` : prev;
 }
 
 /*************************************************
@@ -149,15 +150,15 @@ export function renderProblem(problem, state) {
 
 
     return [
-        '<span class="title">文切：极简文字何切</span>',
+        '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
         '<span class="frame">====================================================</span>',
 
-        `<span class="value">题目 ${problem.id}（点击手牌切牌）${navigation ? ` ${navigation}` : ''}</span>`,
+        `<span class="value">题目 ${problem.id}  ${navigation ? ` ${navigation}` : ''}</span>`,
         `<span class="value">${WIND_LABEL[problem.game_phase]}${problem.round}局 ${WIND_LABEL[problem.self_position]}家 ${problem.turn}巡目</span>`,
 
         renderDoraIndicators(problem.dora_indicators),
         handLine,
-        renderAnswerSection(problem, state),
-        '<span class="sep">====================================================</span>'
+        '<span class="sep">====================================================</span>',
+        renderAnswerSection(problem, state)
     ].join('\n');
 }

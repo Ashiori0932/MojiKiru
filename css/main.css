@@ -63,7 +63,7 @@ a:hover {
 }
 
 .jump-input {
-  width: 5em;
+  width: 3em;
   appearance: textfield;
   -moz-appearance: textfield;
 }

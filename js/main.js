@@ -20,6 +20,7 @@ function mount() {
   app.innerHTML = `<pre>${renderProblem(state.problem, state)}</pre>`;
   bindChoices();
   bindNavigation();
+  bindJump();
 }
 
 // 绑定所有可点击手牌链接（data-discard），点击即视为切出该牌。
@@ -31,6 +32,22 @@ function bindChoices() {
       mount();
     });
   });
+}
+
+
+function jumpToProblem(inputValue) {
+  const targetNumber = Number.parseInt(inputValue, 10);
+  if (!Number.isInteger(targetNumber)) return;
+
+  const nextIndex = targetNumber - 1;
+  const next = state.problems[nextIndex];
+  if (!next) return;
+
+  state.currentIndex = nextIndex;
+  state.problem = next.problem;
+  state.answer = next.answer;
+  state.selection = '';
+  mount();
 }
 
 // 绑定题目切换链接：支持上一题 / 下一题并重新渲染。
@@ -52,6 +69,23 @@ function bindNavigation() {
   });
 }
 
+
+
+function bindJump() {
+  const input = app.querySelector('input[data-jump-input]');
+  const button = app.querySelector('button[data-jump-button]');
+  if (!input || !button) return;
+
+  button.addEventListener('click', () => {
+    jumpToProblem(input.value);
+  });
+
+  input.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    jumpToProblem(input.value);
+  });
+}
 // 初始化流程：加载数据 -> 取第一题 -> 校验 -> 首次渲染。
 async function init() {
   try {

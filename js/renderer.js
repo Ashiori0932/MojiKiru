@@ -153,7 +153,7 @@ export function renderProblem(problem, state) {
         '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
         '<span class="frame">====================================================</span>',
 
-        `<span class="value">题目 ${problem.id}  ${navigation ? ` ${navigation}` : ''}</span>`,
+        `<span class="value">题目 ${problem.id}  ${navigation ? ` ${navigation}` : ''}  <input type="number" min="1" max="${state.problems.length}" value="${state.currentIndex + 1}" data-jump-input aria-label="跳转题号" style="width: 5em;" /> <button data-jump-button>跳转</button></span>`,
         `<span class="value">${WIND_LABEL[problem.game_phase]}${problem.round}局 ${WIND_LABEL[problem.self_position]}家 ${problem.turn}巡目</span>`,
 
         renderDoraIndicators(problem.dora_indicators),

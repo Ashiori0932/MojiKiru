@@ -129,7 +129,7 @@ function renderNavigation(state) {
         ? '<a href="#" data-nav="next">[下一题]</a>'
         : '<span class="nav-placeholder">[下一题]</span>';
 
-    return `${prev}   ${next}`;
+    return `${prev}  ${next}`;
 }
 
 function renderProblemCatalog(state) {
@@ -146,10 +146,9 @@ export function renderProblem(problem, state) {
         return [
             '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
             '<span class="frame">====================================================</span>',
-            `<span class="value">题目 ${problem.id}  <a href="#" data-action="catalog">[题单]</a></span>`,
-            '<span class="sep">====================================================</span>',
-            '<span class="value">题单：</span>',
-            renderProblemCatalog(state)
+            '<span class="value">题单</span>',
+            renderProblemCatalog(state),
+            '<span class="frame">====================================================</span>'
         ].join('\n');
     }
 
@@ -172,7 +171,7 @@ export function renderProblem(problem, state) {
         '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
         '<span class="frame">====================================================</span>',
 
-        `<span class="value">题目 ${problem.id} <a href="#" data-action="catalog">[题单]</a>  ${navigation ? ` ${navigation}` : ''}</span>`,
+        `<span class="value">题目 ${problem.id}  <a href="#" data-action="catalog">[题单]</a> ${navigation ? ` ${navigation}` : ''}</span>`,
         `<span class="value">${WIND_LABEL[problem.game_phase]}${problem.round}局 ${WIND_LABEL[problem.self_position]}家 ${problem.turn}巡目</span>`,
 
         renderDoraIndicators(problem.dora_indicators),

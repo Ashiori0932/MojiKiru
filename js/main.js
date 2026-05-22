@@ -10,6 +10,7 @@ const state = {
   problems: [],
   currentIndex: 0,
   problem: null,
+  catalogMode: false,
   selection: '',
   answer: { correct_discards: [], explanation: '' }
 };
@@ -20,6 +21,7 @@ function mount() {
   app.innerHTML = `<pre>${renderProblem(state.problem, state)}</pre>`;
   bindChoices();
   bindNavigation();
+  bindCatalog();
 }
 
 // 绑定所有可点击手牌链接（data-discard），点击即视为切出该牌。
@@ -47,6 +49,35 @@ function bindNavigation() {
       state.problem = next.problem;
       state.answer = next.answer;
       state.selection = '';
+      state.catalogMode = false;
+      mount();
+    });
+  });
+}
+
+// 绑定题单链接：进入题单模式，或通过题号直接切题。
+function bindCatalog() {
+  app.querySelectorAll('a[data-action="catalog"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      state.catalogMode = true;
+      mount();
+    });
+  });
+
+  app.querySelectorAll('a[data-problem-id]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const id = link.dataset.problemId;
+      const nextIndex = state.problems.findIndex(({ problem }) => String(problem.id) === String(id));
+      if (nextIndex < 0) return;
+
+      const next = state.problems[nextIndex];
+      state.currentIndex = nextIndex;
+      state.problem = next.problem;
+      state.answer = next.answer;
+      state.selection = '';
+      state.catalogMode = false;
       mount();
     });
   });

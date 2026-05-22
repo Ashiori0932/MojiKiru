@@ -125,9 +125,11 @@ function renderNavigation(state) {
     const prev = state.currentIndex > 0
         ? '<a href="#" data-nav="prev">[上一题]</a>'
         : '<span class="nav-placeholder" aria-hidden="true">[上一题]</span>';
-    const next = state.currentIndex < state.problems.length - 1 ? '<a href="#" data-nav="next">[下一题]</a>' : '';
+    const next = state.currentIndex < state.problems.length - 1
+        ? '<a href="#" data-nav="next">[下一题]</a>'
+        : '<span class="nav-placeholder" aria-hidden="true">[下一题]</span>';
 
-    return next ? `${prev}   ${next}` : prev;
+    return `${prev}   ${next}`;
 }
 
 /*************************************************
@@ -153,7 +155,7 @@ export function renderProblem(problem, state) {
         '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
         '<span class="frame">====================================================</span>',
 
-        `<span class="value">题目 ${problem.id}  ${navigation ? ` ${navigation}` : ''}  <input type="number" min="1" max="${state.problems.length}" value="${state.currentIndex + 1}" data-jump-input aria-label="跳转题号" style="width: 5em;" /> <button data-jump-button>跳转</button></span>`,
+        `<span class="value">题目 ${problem.id}  ${navigation ? ` ${navigation}` : ''}  <input type="number" min="1" max="${state.problems.length}" value="${state.currentIndex + 1}" data-jump-input aria-label="跳转题号" class="jump-input" /> <button data-jump-button>跳转</button></span>`,
         `<span class="value">${WIND_LABEL[problem.game_phase]}${problem.round}局 ${WIND_LABEL[problem.self_position]}家 ${problem.turn}巡目</span>`,
 
         renderDoraIndicators(problem.dora_indicators),

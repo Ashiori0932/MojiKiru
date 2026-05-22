@@ -116,7 +116,6 @@ function renderAnswerSection(problem, state) {
     return [
         `你的选择: <span class="value">${renderTile(state.selection)}</span>`,
         `参考答案: <span class="value">${state.answer.correct_discards.map(renderTile).join(' / ')}</span>`,
-        '解析:',
         `<span class="value">${state.answer.explanation}</span>`,
     ].join('\n');
 }

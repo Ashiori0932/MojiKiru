@@ -97,6 +97,44 @@
     },
     {
       "problem": {
+        "id": "006",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "east",
+        "turn": 8,
+        "dora_indicators": ["2p"],
+        "hand": {
+          "concealed": ["3m", "3m", "4m", "5m", "5m", "6p", "6p", "8p", "3s", "4s", "6s", "6s", "7s", "5s"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["8p"],
+        "explanation": "虽然切8p放弃了7p的进张，但切6s确定为6p雀头也放弃了7p进张，同时也损失了6p、6s的进张，所以切8p的进张数大于6s。切6s的好处在于7p摸进之后切6p会变成无雀头型，一向听的枚数很高，但是自亲8巡的巡目下还是期望更快听牌，而不是一向听的改良（只有7p），所以这里切8p。"
+      }
+    },
+    {
+      "problem": {
+        "id": "007",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "east",
+        "turn": 6,
+        "dora_indicators": ["2z"],
+        "hand": {
+          "concealed": ["4m", "4m", "0m", "1p", "3p", "4p", "5p", "5p", "6p", "3s", "4s", "7s", "8s", "6m"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["1p"],
+        "explanation": "好型两向没有雀头。切1p损失摸1p形成雀头的进张。切4m损失摸4m、7m形成4m4m雀头的进张。切5p损失摸4p、7p形成顺子和5p摸形成5p5p雀头的进张。所以切1p进张面最广（不损2p的原因在于摸进2p可以切6p从而确定雀头）。"
+      }
+    },
+    {
+      "problem": {
         "id": "020",
         "game_phase": "east",
         "round": 1,

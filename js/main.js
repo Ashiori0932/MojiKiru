@@ -73,10 +73,11 @@ function bindNavigation() {
 
 function bindJump() {
   const input = app.querySelector('input[data-jump-input]');
-  const button = app.querySelector('button[data-jump-button]');
-  if (!input || !button) return;
+  const jumpLink = app.querySelector('a[data-jump-link]');
+  if (!input || !jumpLink) return;
 
-  button.addEventListener('click', () => {
+  jumpLink.addEventListener('click', (event) => {
+    event.preventDefault();
     jumpToProblem(input.value);
   });
 

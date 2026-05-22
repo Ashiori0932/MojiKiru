@@ -136,3 +136,8 @@ pre {
   .value { color: #e5e7eb; }
   .muted { color: #9ca3af; }
 }
+
+.jump-input:focus {
+  outline: none;
+  box-shadow: none;
+}

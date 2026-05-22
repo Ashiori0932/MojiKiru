@@ -59,7 +59,7 @@ a:hover {
 }
 
 .nav-placeholder {
-  visibility: hidden;
+  color: inherit;
 }
 
 pre {

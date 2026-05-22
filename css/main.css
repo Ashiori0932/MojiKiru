@@ -103,6 +103,22 @@ pre {
    width: 1em;
  }
 
+
+.dora-line,
+.hand-line {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .dora-line,
+  .hand-line {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 .title { color: #7c3aed; font-weight: 700; }
 .frame { color: #6b7280; }
 .sep { color: #9ca3af; }

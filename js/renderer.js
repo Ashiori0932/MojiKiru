@@ -156,8 +156,8 @@ export function renderProblem(problem, state) {
         `<span class="value">题目 ${problem.id}  ${navigation ? ` ${navigation}` : ''}</span>`,
         `<span class="value">${WIND_LABEL[problem.game_phase]}${problem.round}局 ${WIND_LABEL[problem.self_position]}家 ${problem.turn}巡目</span>`,
 
-        renderDoraIndicators(problem.dora_indicators),
-        handLine,
+        `<span class="value dora-line">${renderDoraIndicators(problem.dora_indicators)}</span>`,
+        `<span class="value hand-line">${handLine}</span>`,
         '<span class="sep">====================================================</span>',
         renderAnswerSection(problem, state)
     ].join('\n');

@@ -135,6 +135,25 @@
     },
     {
       "problem": {
+        "id": "008",
+        "game_phase": "east",
+        "round": 1,
+        "self_position": "east",
+        "turn": 6,
+        "dora_indicators": ["9s"],
+        "hand": {
+          "concealed": ["1m", "3m", "5m", "1p", "1p", "2p", "4p", "0p", "6p", "6p", "7p", "7s", "8s", "9s"],
+          "open_sets": [],
+          "total_tiles_count": 14
+        }
+      },
+      "answer": {
+        "correct_discards": ["2p"],
+        "explanation": "考虑最终听牌型，听在饼子侧（切2p）为两面好型听牌，且有平和。听在万子侧（切5m）为骗2m的坎张听牌。保留1m3m5m两坎型，能最大程度听牌到饼子侧。所以切2p。"
+      }
+    },
+    {
+      "problem": {
         "id": "020",
         "game_phase": "east",
         "round": 1,

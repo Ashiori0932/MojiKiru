@@ -145,7 +145,7 @@ export function renderProblem(problem, state) {
         return [
             '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
             '<span class="frame">====================================================</span>',
-            '<span class="value">题单</span>'，
+            '<span class="value">题单</span>',
             renderProblemCatalog(state),
             '<span class="frame">====================================================</span>'
         ].join('\n');

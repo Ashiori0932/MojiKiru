@@ -124,7 +124,7 @@ function renderNavigation(state) {
     const prev = state.currentIndex > 0
         ? '<a href="#" data-nav="prev">[上一题]</a>'
         : '<span class="nav-placeholder">[上一题]</span>';
-    const next = state.currentIndex < state.problems.length - 1
+    const 下一处 = state.currentIndex < state.problems.length - 1
         ? '<a href="#" data-nav="next">[下一题]</a>'
         : '<span class="nav-placeholder">[下一题]</span>';
 
@@ -145,7 +145,7 @@ export function renderProblem(problem, state) {
         return [
             '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
             '<span class="frame">====================================================</span>',
-            '<span class="value">题单</span>',
+            '<span class="value">题单</span>'，
             renderProblemCatalog(state),
             '<span class="frame">====================================================</span>'
         ].join('\n');
@@ -159,7 +159,7 @@ export function renderProblem(problem, state) {
     const openMelds = problem.hand.open_sets.length
         ? problem.hand.open_sets
             .map(set => `<span class="value">${renderMeld(set)}</span>`)
-            。join(' ')
+            .join(' ')
         : '';
 
     const handLine = concealedTiles +

@@ -143,7 +143,7 @@ function renderProblemCatalog(state) {
 export function renderProblem(problem, state) {
     if (state.catalogMode) {
         const backToProblem = state.problem
-            ? ` <a href="#" data-action="back-to-current">[返回题目 ${state.problem.id}]</a>`
+            ? ` <a href="#" data-action="back-to-current">[返回]</a>`
             : '';
 
         return [

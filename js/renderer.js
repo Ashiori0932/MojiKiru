@@ -124,7 +124,7 @@ function renderNavigation(state) {
     const prev = state.currentIndex > 0
         ? '<a href="#" data-nav="prev">[上一题]</a>'
         : '<span class="nav-placeholder">[上一题]</span>';
-    const 下一处 = state.currentIndex < state.problems.length - 1
+    const next = state.currentIndex < state.problems.length - 1
         ? '<a href="#" data-nav="next">[下一题]</a>'
         : '<span class="nav-placeholder">[下一题]</span>';
 

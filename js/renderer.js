@@ -85,7 +85,7 @@ function renderMeld(set) {
     const calledIndex = getCalledTileIndex(set);
 
     return (set.tiles ?? [])
-        。map((tile, index) => {
+        .map((tile, index) => {
             return index === calledIndex ?
                 `<span class="meld-tile meld-tile-called" title="${tile}">${renderTile(tile)}</span><span class="meld-spacer-small"></span>`
                 : `<span class="meld-tile" title="${tile}">${renderTile(tile)}</span>`;
@@ -134,7 +134,7 @@ function renderNavigation(state) {
 function renderProblemCatalog(state) {
     return state.problems
         .map(({ problem }) => `<a href="#" data-problem-id="${problem.id}">[${problem.id}]</a>`)
-        。join(' ');
+        .join(' ');
 }
 
 /*************************************************
@@ -142,14 +142,10 @@ function renderProblemCatalog(state) {
  *************************************************/
 export function renderProblem(problem, state) {
     if (state.catalogMode) {
-        const backToProblem = state.problem
-            ? ` <a href="#" data-action="back-to-current">[返回]</a>`
-            : '';
-
         return [
             '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
             '<span class="frame">====================================================</span>',
-            `<span class="value">题单${backToProblem}</span>`,
+            '<span class="value">题单</span>',
             renderProblemCatalog(state),
             '<span class="frame">====================================================</span>'
         ].join('\n');
@@ -163,7 +159,7 @@ export function renderProblem(problem, state) {
     const openMelds = problem.hand.open_sets.length
         ? problem.hand.open_sets
             .map(set => `<span class="value">${renderMeld(set)}</span>`)
-            .join(' ')
+            。join(' ')
         : '';
 
     const handLine = concealedTiles +

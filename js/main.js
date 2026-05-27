@@ -65,6 +65,15 @@ function bindCatalog() {
     });
   });
 
+
+  app.querySelectorAll('a[data-action="back-to-current"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      state.catalogMode = false;
+      mount();
+    });
+  });
+
   app.querySelectorAll('a[data-problem-id]').forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();

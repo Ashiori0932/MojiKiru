@@ -18,7 +18,7 @@ const state = {
 // 统一挂载函数：每次状态变化后都重新渲染一次文本界面。
 function mount() {
   if (!state.problem) return;
-  app.innerHTML = `<pre>${renderProblem(state.problem, state)}</pre>`;
+  app.innerHTML = renderProblem(state.problem, state);
   bindChoices();
   bindNavigation();
   bindCatalog();

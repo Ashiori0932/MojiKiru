@@ -59,7 +59,7 @@ function renderTile(tile) {
     return `<span class="tile-glyph">${unicode}</span>`;
 }
 function renderLinkedTile(tile) {
-    return `<a class="tile-link" href="#" data-discard="${tile}" title="打出 ${tile}"> ${renderTile(tile)} </a>`;
+    return `<a class="tile-link" href="#" data-discard="${tile}" title="打出 ${tile}">${renderTile(tile)}</a>`;
 }
 
 function getCalledTileIndex(set) {
@@ -107,17 +107,26 @@ function renderDoraIndicators(doraTiles) {
 /*************************************************
  * 判定 & 解析区域
  *************************************************/
-function renderAnswerSection(problem, state) {
+function renderAnswerSection(state) {
     if (!state.selection) {
         return '';
     }
 
-
-    return [
-        `你的选择: <span class="value">${renderTile(state.selection)}</span>`,
-        `参考答案: <span class="value">${state.answer.correct_discards.map(renderTile).join(' / ')}</span>`,
-        `<span class="value">${state.answer.explanation}</span>`,
-    ].join('\n');
+    return `
+        <section class="ascii-table answer-table" aria-label="答案解析">
+            <div class="ascii-row">
+                <div class="ascii-cell label">你的选择</div>
+                <div class="ascii-cell value">${renderTile(state.selection)}</div>
+            </div>
+            <div class="ascii-row">
+                <div class="ascii-cell label">参考答案</div>
+                <div class="ascii-cell value">${state.answer.correct_discards.map(renderTile).join('<span class="answer-separator">/</span>')}</div>
+            </div>
+            <div class="ascii-row ascii-row-wide">
+                <div class="ascii-cell label">解析</div>
+                <div class="ascii-cell value explanation">${state.answer.explanation}</div>
+            </div>
+        </section>`;
 }
 
 function renderNavigation(state) {
@@ -128,13 +137,25 @@ function renderNavigation(state) {
         ? '<a href="#" data-nav="next">[下一题]</a>'
         : '<span class="nav-placeholder">[下一题]</span>';
 
-    return `${prev}  ${next}`;
+    return `${prev}<span class="nav-gap">··</span>${next}`;
 }
 
 function renderProblemCatalog(state) {
     return state.problems
         .map(({ problem }) => `<a href="#" data-problem-id="${problem.id}">[${problem.id}]</a>`)
-        .join(' ');
+        .join('');
+}
+
+function renderShell({ title, toolbar = '', children }) {
+    return `
+        <div class="terminal-page">
+            <header class="page-header ascii-table">
+                <div class="ascii-cell title">文切 / MojiKiru</div>
+                <div class="ascii-cell muted">点击手牌切牌</div>
+                <nav class="ascii-cell toolbar" aria-label="页面导航">${toolbar}</nav>
+            </header>
+            ${children}
+        </div>`;
 }
 
 /*************************************************
@@ -143,43 +164,51 @@ function renderProblemCatalog(state) {
 export function renderProblem(problem, state) {
     if (state.catalogMode) {
         const backToProblem = state.problem
-            ? ` <a href="#" data-action="back-to-current">[返回]</a>`
+            ? '<a href="#" data-action="back-to-current">[返回]</a>'
             : '';
 
-        return [
-            '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
-            '<span class="frame">====================================================</span>',
-            `<span class="value">题单${backToProblem}</span>`,
-            renderProblemCatalog(state),
-            '<span class="frame">====================================================</span>'
-        ].join('\n');
+        return renderShell({
+            toolbar: backToProblem,
+            children: `
+                <section class="ascii-table catalog-table" aria-label="题单">
+                    <div class="ascii-cell section">题单</div>
+                    <div class="ascii-cell catalog-grid">${renderProblemCatalog(state)}</div>
+                </section>`
+        });
     }
 
-    const navigation = renderNavigation(state);
     const concealedTiles = problem.hand.concealed
         .map(renderLinkedTile)
         .join('');
 
     const openMelds = problem.hand.open_sets.length
         ? problem.hand.open_sets
-            .map(set => `<span class="value">${renderMeld(set)}</span>`)
-            .join(' ')
-        : '';
+            .map(set => `<span class="meld-set">${renderMeld(set)}</span>`)
+            .join('')
+        : '<span class="muted">无</span>';
 
-    const handLine = concealedTiles +
-        (openMelds ? '<span class="meld-spacer"></span>' + openMelds : '');
+    return renderShell({
+        toolbar: `<a href="#" data-action="catalog">[题单]</a>${renderNavigation(state)}`,
+        children: `
+            <section class="ascii-table meta-table" aria-label="题目信息">
+                <div class="ascii-cell label">题目</div>
+                <div class="ascii-cell value">${problem.id}</div>
+                <div class="ascii-cell label">局面</div>
+                <div class="ascii-cell value">${WIND_LABEL[problem.game_phase]}${problem.round}局</div>
+                <div class="ascii-cell label">自风</div>
+                <div class="ascii-cell value">${WIND_LABEL[problem.self_position]}家</div>
+                <div class="ascii-cell label">巡目</div>
+                <div class="ascii-cell value">${problem.turn}巡目</div>
+            </section>
 
-
-    return [
-        '<span class="value">文切 / MojiKiru （点击手牌切牌）</span>',
-        '<span class="frame">====================================================</span>',
-
-        `<span class="value">题目 ${problem.id}  <a href="#" data-action="catalog">[题单]</a> ${navigation ? ` ${navigation}` : ''}</span>`,
-        `<span class="value">${WIND_LABEL[problem.game_phase]}${problem.round}局 ${WIND_LABEL[problem.self_position]}家 ${problem.turn}巡目</span>`,
-
-        renderDoraIndicators(problem.dora_indicators),
-        handLine,
-        '<span class="sep">====================================================</span>',
-        renderAnswerSection(problem, state)
-    ].join('\n');
+            <section class="ascii-table board-table" aria-label="牌面">
+                <div class="ascii-cell label">宝牌指示</div>
+                <div class="ascii-cell tile-line dora-line">${renderDoraIndicators(problem.dora_indicators)}</div>
+                <div class="ascii-cell label">手牌</div>
+                <div class="ascii-cell tile-line hand-line">${concealedTiles}</div>
+                <div class="ascii-cell label">副露</div>
+                <div class="ascii-cell tile-line meld-line">${openMelds}</div>
+            </section>
+            ${renderAnswerSection(state)}`
+    });
 }

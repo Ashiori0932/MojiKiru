@@ -1,4 +1,4 @@
- /* 本地字体 */
+/* 本地字体 */
 @font-face {
   font-family: "Noto Sans Symbols";
   src: url("../fonts/NotoSansSymbols-Regular.ttf") format("truetype");
@@ -15,9 +15,18 @@
   font-display: swap;
 }
 
-
 :root {
   color-scheme: light dark;
+  --paper: #fffdf7;
+  --ink: #111827;
+  --line: #111827;
+  --line-soft: #6b7280;
+  --accent: #7c3aed;
+  --section: #0f766e;
+  --label: #b45309;
+  --muted: #6b7280;
+  --hover: #01aa01;
+  --cell-block: 4ch;
 }
 
 * {
@@ -29,15 +38,20 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 1rem;
-  font-family: sans-serif;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(17, 24, 39, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(17, 24, 39, 0.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: var(--cell-block) 1.8rem, var(--cell-block) 1.8rem, auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   line-height: 1.6;
   letter-spacing: 0.02em;
 }
 
 #app {
-  width: 100%;
-  max-width: 88ch;
+  width: min(100%, 104ch);
 }
 
 a {
@@ -48,10 +62,109 @@ a {
 a:focus,
 a:hover {
   text-shadow:
-          0 0 2px #01aa01,
-  0 0 2px #01aa01,
-  0 0 2px #01aa01;
+    0 0 2px var(--hover),
+    0 0 2px var(--hover),
+    0 0 2px var(--hover);
+}
 
+.terminal-page {
+  display: grid;
+  grid-template-columns: repeat(26, minmax(0, var(--cell-block)));
+  gap: 1rem 0;
+  align-items: start;
+}
+
+.ascii-table {
+  grid-column: 1 / -1;
+  display: grid;
+  border: 2px solid var(--line);
+  box-shadow: 0.5ch 0.5ch 0 var(--line-soft);
+  background: color-mix(in srgb, var(--paper) 94%, white);
+}
+
+.ascii-cell {
+  min-width: 0;
+  min-height: 2.4rem;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 1ch;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.ascii-cell:nth-last-child(-n + 1) {
+  border-bottom: 0;
+}
+
+.page-header {
+  grid-template-columns: minmax(18ch, 1fr) minmax(16ch, 1fr) minmax(28ch, 2fr);
+}
+
+.page-header .ascii-cell {
+  border-bottom: 0;
+}
+
+.page-header .ascii-cell:last-child,
+.meta-table .ascii-cell:nth-child(8n),
+.board-table .ascii-cell:nth-child(2n),
+.answer-table .ascii-cell:nth-child(2n),
+.catalog-table .ascii-cell:last-child {
+  border-right: 0;
+}
+
+.meta-table {
+  grid-template-columns: 8ch 1fr 8ch 1fr 8ch 1fr 8ch 1fr;
+}
+
+.meta-table .ascii-cell {
+  border-bottom: 0;
+}
+
+.board-table,
+.answer-table,
+.catalog-table {
+  grid-template-columns: 12ch minmax(0, 1fr);
+}
+
+.board-table .ascii-cell:nth-last-child(-n + 2),
+.answer-table .ascii-row:last-child .ascii-cell,
+.catalog-table .ascii-cell {
+  border-bottom: 0;
+}
+
+.answer-table {
+  display: grid;
+}
+
+.answer-table .ascii-row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}
+
+.answer-table .ascii-row-wide .ascii-cell {
+  align-items: flex-start;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8ch, 1fr));
+  gap: 0 1ch;
+  align-items: center;
+}
+
+.toolbar {
+  justify-content: flex-end;
+  gap: 1ch;
+  white-space: nowrap;
+}
+
+.nav-gap,
+.answer-separator {
+  color: var(--line-soft);
+  margin: 0 1ch;
 }
 
 .aka {
@@ -62,25 +175,34 @@ a:hover {
   color: inherit;
 }
 
-pre {
-  margin: 0;
-  font-family: inherit;
-  white-space: pre-wrap;
-}
-
 .tile-glyph {
   font-family: "Noto Sans Symbols 2", "Noto Sans Symbols", sans-serif;
-  font-size: 400%;
+  font-size: clamp(2.5rem, 8vw, 4rem);
   letter-spacing: 0;
-  line-height: 100%;
+  line-height: 1;
 }
 
 .tile-link {
   display: inline-flex;
   align-items: center;
-  line-height: 100%;
+  justify-content: center;
+  min-width: 4ch;
+  line-height: 1;
 }
 
+.tile-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.1rem 0.35ch;
+  min-height: 5rem;
+}
+
+.meld-line {
+  gap: 0.5rem 2ch;
+}
+
+.meld-set,
 .meld-tile {
   display: inline-flex;
   align-items: center;
@@ -88,39 +210,74 @@ pre {
 }
 
 .meld-tile-called {
-  transform: rotate(90deg) translateX(-0.3em);;
+  transform: rotate(90deg) translateX(-0.3em);
   transform-origin: center;
   margin: -0.2em;
 }
 
- .meld-spacer {
-   display: inline-block;
-   width: 1.5em; /* 想要更大就改这里 */
- }
+.meld-spacer-small {
+  display: inline-block;
+  width: 1em;
+}
 
- .meld-spacer-small {
-   display: inline-block;
-   width: 1em;
- }
-
-.title { color: #7c3aed; font-weight: 700; }
-.frame { color: #6b7280; }
+.title { color: var(--accent); font-weight: 700; }
+.frame { color: var(--line-soft); }
 .sep { color: #9ca3af; }
-.section { color: #0f766e; font-weight: 600; }
-.label { color: #b45309; }
-.value { color: #111827; }
-.muted { color: #6b7280; }
+.section { color: var(--section); font-weight: 600; }
+.label { color: var(--label); font-weight: 700; }
+.value { color: var(--ink); }
+.muted { color: var(--muted); }
+.explanation { line-height: 1.8; }
 
+@media (max-width: 760px) {
+  .terminal-page {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header,
+  .meta-table,
+  .board-table,
+  .answer-table,
+  .catalog-table,
+  .answer-table .ascii-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ascii-cell,
+  .page-header .ascii-cell,
+  .meta-table .ascii-cell {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ascii-table .ascii-cell:last-child,
+  .board-table .ascii-cell:last-child,
+  .answer-table .ascii-row:last-child .ascii-cell:last-child,
+  .catalog-table .ascii-cell:last-child {
+    border-bottom: 0;
+  }
+
+  .toolbar {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f172a;
+    --ink: #e5e7eb;
+    --line: #e5e7eb;
+    --line-soft: #64748b;
+    --accent: #c4b5fd;
+    --section: #5eead4;
+    --label: #fbbf24;
+    --muted: #9ca3af;
+    --hover: #ff7b72;
+  }
+
   a { color: #7aa2ff; }
   a:focus,
   a:hover { color: #ff7b72; }
-  .title { color: #c4b5fd; }
-  .frame { color: #9ca3af; }
-  .sep { color: #6b7280; }
-  .section { color: #5eead4; }
-  .label { color: #fbbf24; }
-  .value { color: #e5e7eb; }
-  .muted { color: #9ca3af; }
+  .aka { color: #ff6b6b; }
 }
